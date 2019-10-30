@@ -4,7 +4,8 @@ const Product = mongoose.model('Product');
 
 module.exports = {
     async index(req, res) {
-
+        // paginate só irar funcionar se não esquecer de ir em ProductController e ativar o plugin mongoose-paginate
+        // não esquecer que o paginate foi instalado via npm install mongoose-paginate
         const { page = 1 } = req.query;
         const products = await Product.paginate({}, { page, limit: 10});
 

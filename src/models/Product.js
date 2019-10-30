@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
-
+// mongoosePaginate plugin instalado via npm para fazer paginate do mongo
 const ProductSchema = new mongoose.Schema({
 
     title: {
@@ -22,6 +22,7 @@ const ProductSchema = new mongoose.Schema({
 
 });
 
+// Nesse momento você informa ao mongoose que você quer usar esse plugin para paginacao
 ProductSchema.plugin(mongoosePaginate);
 
 mongoose.model('Product', ProductSchema);
