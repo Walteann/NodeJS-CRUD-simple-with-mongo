@@ -120,7 +120,95 @@ mongoose.model('Product', ProductSchema);
 
 ```
 
+#### Exemplo de schema
+```
+// src/models/Product.js
+const mongoose = require('mongoose');
 
- // TODO: Terminar de escrever
+const ProductSchema = new mongoose.Schema({
+	title: {
+		type: String,
+		required: true
+	},
+	description: {
+		type: String,
+		required: true
+	},
+	url: {
+		type: String,
+		required: true
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now
+	}
+
+});
+
+mongoose.model('Product', ProductShema);
+
+```
+
+### 7º Usando Require-dir para organalizar os models
+
+Temos que importar para o service.js todos os models que estão na pasta de models
+para evitar ficar fazendo varias requeries, usaremos o require-dir, para ele importar todos os models que estão dentro.
+
+```
+	npm install require-dir
+```
+
+importe no service.js e use apontando para o diretorio de models.
+
+```
+// service.js
+
+const express = require('express');
+const mongoose = require('mongoose');
+const requireDir = require('require-dir');
+
+const app = express();
+
+mongoose.connect('mongodb://localhost:27017/NODE_DO_BANCO', {
+	{ userNewUrlParser: true }
+});
+
+requireDir('./src/models');
+
+app.listen(3001);
+
+
+```
+
+_O **requireDir('./src/models');** serve para simplificar o uso de requires execivos no service.js._
+
+### 8º Criando rotas e controles
+
+Agora crie uma pasta dentro de src chamada _controllers_ e crie um controler para sua api.
+
+```
+// src/controllers/ProductController.js
+
+const mongoose = require('mongoose');
+
+const Product = mongoose.model('Product');
+
+module.exports = {
+
+	async getAllProducts(req, res) {
+		const product = mongoose.find();
+
+		return res.json();
+	}
+}
+
+
+```
+_esse controller exporta a consulta que faz ao mongo de forma assicrona_
+
+#### Criando rotas
+
+// TODO: criar dps
+
 
 
